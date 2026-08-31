@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>▓▒░ Pixel Portfolio ░▒▓</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════
+       PALETTE WARNA PIXEL ART RETRO
+       ═══════════════════════════════════════ */
+    :root {
+      --bg-dark: #0d0d1a;
+      --bg-card: #1a1a3e;
+      --bg-inner: #0f0f2e;
+      --border-main: #8338ec;
+      --accent-cyan: #00f5d4;
+      --accent-pink: #ff006e;
+      --accent-purple: #533483;
+      --text-main: #e0e0e0;
+      --text-dim: #b0b0e0;
+      --text-muted: #888;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'VT323', monospace;
+      background: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════
+       EFEK CRT SCANLINE (LAYAR RETRO)
+       ═══════════════════════════════════════ */
+    .crt-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.22),
+        rgba(0, 0, 0, 0.22) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      animation: scanlineMove 10s linear infinite;
+    }
+
+    @keyframes scanlineMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 100vh; }
+    }
+
+    /* ═══════════════════════════════════════
+       PARTIKEL MELAYANG
+       ═══════════════════════════════════════ */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 0;
+      opacity: 0.4;
+      animation: floatParticle linear infinite;
+    }
+
+    @keyframes floatParticle {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% { opacity: 0.5; }
+      90% { opacity: 0.5; }
+      100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* ═══════════════════════════════════════
+       HEADER
+       ═══════════════════════════════════════ */
+    header {
+      background: linear-gradient(180deg, #1a1a3e 0%, #0f0f2e 100%);
+      border-bottom: 4px solid var(--accent-pink);
+      padding: 35px 20px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 4px 25px rgba(255, 0, 110, 0.35);
+    }
+
+    .logo {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 22px;
+      color: var(--accent-cyan);
+      text-shadow: 2px 2px 0 var(--accent-pink), -2px -2px 0 var(--border-main);
+      letter-spacing: 3px;
+      animation: glitch 4s infinite;
+      margin-bottom: 12px;
+    }
+
+    .tagline {
+      font-size: 20px;
+      color: var(--text-dim);
+      animation: fadeInOut 4s infinite;
+    }
+
+    .star {
+      position: absolute;
+      font-size: 14px;
+      animation: twinkle 1.5s infinite alternate;
+    }
+
+    .star-1 { top: 15px; right: 30px; }
+    .star-2 { top: 40px; left: 40px; font-size: 10px; animation-delay: 0.5s; }
+    .star-3 { bottom: 10px; right: 80px; font-size: 12px; animation-delay: 1s; }
+
+    /* ═══════════════════════════════════════
+       NAVIGASI
+       ═══════════════════════════════════════ */
+    nav {
+      background: var(--bg-inner);
+      padding: 18px;
+      text-align: center;
+      border-bottom: 3px solid var(--border-main);
+      position: relative;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .nav-btn {
+      background: var(--bg-card);
+      color: var(--accent-cyan);
+      border: 2px solid var(--accent-cyan);
+      padding: 10px 18px;
+      cursor: pointer;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 9px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: var(--accent-pink);
+      color: white;
+      border-color: var(--accent-pink);
+      box-shadow: 0 0 20px rgba(255, 0, 110, 0.6);
+      transform: translateY(-3px);
+    }
+
+    .nav-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+      transition: left 0.5s;
+    }
+
+    .nav-btn:hover::before {
+      left: 100%;
+    }
+
+    /* ═══════════════════════════════════════
+       KONTEN UTAMA
+       ═══════════════════════════════════════ */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .section {
+      display: none;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    /* ═══════════════════════════════════════
+       KARTU PIXEL
+       ═══════════════════════════════════════ */
+    .pixel-card {
+      background: var(--bg-card);
+      border: 3px solid var(--border-main);
+      padding: 30px;
+      margin-bottom: 25px;
+      position: relative;
+      box-shadow: 6px 6px 0 var(--bg-inner);
+      transition: all 0.3s ease;
+    }
+
+    .pixel-card:hover {
+      box-shadow: 8px 8px 0 var(--accent-purple);
+    }
+
+    .card-title {
+      position: absolute;
+      top: -14px;
+      left: 25px;
+      background: var(--bg-dark);
+      padding: 0 12px;
+      color: var(--accent-pink);
+      font-family: 'Press Start 2P', cursive;
+      font-size: 10px;
+      border: 2px solid var(--border-main);
+    }
+
+    /* ═══════════════════════════════════════
+       ABOUT SECTION
+       ═══════════════════════════════════════ */
+    .about-flex {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .avatar-box {
+      width: 120px;
+      height: 120px;
+      background: var(--bg-inner);
+      border: 3px solid var(--accent-pink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      animation: bounce 2.5s infinite;
+      flex-shrink: 0;
+    }
+
+    .about-text h2 {
+      color: var(--accent-cyan);
+      margin: 0 0 12px 0;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 14px;
+      text-shadow: 2px 2px 0 var(--border-main);
+    }
+
+    .about-text p {
+      color: var(--text-dim);
+      font-size: 20px;
+      line-height: 1.7;
+    }
+
+    .highlight {
+      color: var(--accent-pink);
+      animation: pulse 2s infinite;
+    }
+
+    .arrow {
+      color: var(--accent-cyan);
+    }
+
+    /* Journey Boxes */
+    .journey-grid {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .journey-box {
+      background: var(--bg-inner);
+      border: 3px solid var(--border-main);
+      padding: 20px;
+      flex: 1;
+      min-width: 160px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .journey-box:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent-pink);
+      box-shadow: 0 8px 25px rgba(255, 0, 110, 0.3);
+    }
+
+    .journey-box .icon {
+      font-size: 42px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .journey-box .icon-1 { animation: float 3s ease-in-out infinite; }
+    .journey-box .icon-2 { animation: float 3s ease-in-out infinite 0.5s; }
+    .journey-box .icon-3 { animation: float 3s ease-in-out infinite 1s; }
+
+    .journey-box .label {
+      color: var(--accent-cyan);
+      font-family: 'Press Start 2P', cursive;
+      font-size: 9px;
+    }
+
+    .journey-box .status {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* ═══════════════════════════════════════
+       PIXEL ART GALLERY
+       ═══════════════════════════════════════ */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .art-item {
+      background: var(--bg-inner);
+      border: 3px solid var(--border-main);
+      padding: 14px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .art-item:hover {
+      transform: scale(1.06) rotate(1deg);
+      border-color: var(--accent-pink);
+      box-shadow: 0 0 25px rgba(255, 0, 110, 0.4);
+    }
+
+    .art-item:nth-child(even):hover {
+      transform: scale(1.06) rotate(-1deg);
+    }
+
+    .art-thumb {
+      width: 100%;
+      height: 120px;
+      background: var(--bg-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+      margin-bottom: 10px;
+      border: 2px dashed var(--accent-purple);
+      overflow: hidden;
+    }
+
+    .art-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      image-rendering: pixelated;
+    }
+
+    .art-name {
+      font-size: 18px;
+      color: var(--text-dim);
+    }
+
+    .art-status {
+      font-size: 14px;
+      color: var(--accent-pink);
+      animation: pulse 2s infinite;
+    }
+
+    /* ═══════════════════════════════════════
+       GAME PROJECTS
+       ═══════════════════════════════════════ */
+    .game-card {
+      background: var(--bg-inner);
+      border: 3px solid var(--border-main);
+      padding: 25px;
+      margin-top: 18px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .game-card:hover {
+      border-color: var(--accent-pink);
+      box-shadow: 0 0 30px rgba(255, 0, 110, 0.2);
+    }
+
+    .game-card .float-icon {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 22px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .game-flex {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .game-thumb {
+      width: 140px;
+      height: 140px;
+      background: var(--bg-dark);
+      border: 3px solid var(--accent-pink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      animation: bounce 3s infinite;
+      flex-shrink: 0;
+    }
+
+    .game-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      image-rendering: pixelated;
+    }
+
+    .game-info h3 {
+      color: var(--accent-cyan);
+      margin: 0 0 10px 0;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 12px;
+      text-shadow: 1px 1px 0 var(--border-main);
+    }
+
+    .game-meta {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .game-desc {
+      font-size: 19px;
+      color: var(--text-dim);
+      line-height: 1.6;
+      margin: 0 0 14px 0;
+    }
+
+    .tag-list {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: var(--bg-card);
+      border: 2px solid var(--accent-cyan);
+      padding: 5px 12px;
+      font-size: 12px;
+      color: var(--accent-cyan);
+      font-family: 'Press Start 2P', cursive;
+    }
+
+    /* ═══════════════════════════════════════
+       NOVEL SECTION
+       ═══════════════════════════════════════ */
+    .novel-flex {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      margin-top: 18px;
+    }
+
+    .novel-cover {
+      width: 170px;
+      height: 250px;
+      background: var(--bg-inner);
+      border: 3px solid var(--accent-pink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      animation: float 4s ease-in-out infinite;
+      box-shadow: 4px 4px 0 var(--border-main);
+      flex-shrink: 0;
+    }
+
+    .novel-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      image-rendering: pixelated;
+    }
+
+    .novel-info {
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .novel-info h2 {
+      color: var(--accent-cyan);
+      margin: 0 0 14px 0;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 14px;
+      text-shadow: 2px 2px 0 var(--border-main);
+    }
+
+    .novel-meta {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .novel-synopsis {
+      background: var(--bg-inner);
+      border: 3px solid var(--border-main);
+      padding: 20px;
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .novel-synopsis .synopsis-label {
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      background: var(--bg-dark);
+      padding: 0 8px;
+      color: var(--accent-pink);
+      font-family: 'Press Start 2P', cursive;
+      font-size: 9px;
+    }
+
+    .novel-synopsis p {
+      font-size: 19px;
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent-pink);
+      color: white;
+      border: none;
+      padding: 12px 22px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 9px;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--border-main);
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--border-main);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--accent-cyan);
+      border: 2px solid var(--accent-cyan);
+      padding: 12px 22px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 9px;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--bg-inner);
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--bg-inner);
+    }
+
+    /* ═══════════════════════════════════════
+       CONTACT SECTION
+       ═══════════════════════════════════════ */
+    .contact-center {
+      text-align: center;
+      margin-top: 18px;
+    }
+
+    .contact-icon {
+      font-size: 55px;
+      margin-bottom: 18px;
+      display: inline-block;
+      animation: bounce 2s infinite;
+    }
+
+    .contact-text {
+      color: var(--text-dim);
+      font-size: 22px;
+      margin-bottom: 28px;
+    }
+
+    .social-grid {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 35px;
+    }
+
+    .social-item {
+      background: var(--bg-inner);
+      border: 3px solid var(--border-main);
+      padding: 18px 24px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .social-item:hover {
+      border-color: var(--accent-pink);
+      transform: translateY(-6px) scale(1.08);
+      box-shadow: 0 8px 25px rgba(255, 0, 110, 0.3);
+    }
+
+    .social-item .s-icon {
+      font-size: 32px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .social-item .s-icon-1 { animation: float 3s ease-in-out infinite; }
+    .social-item .s-icon-2 { animation: float 3s ease-in-out infinite 0.5s; }
+    .social-item .s-icon-3 { animation: float 3s ease-in-out infinite 1s; }
+    .social-item .s-icon-4 { animation: float 3s ease-in-out infinite 1.5s; }
+
+    .social-item .s-label {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .contact-form {
+      background: var(--bg-inner);
+      border: 3px solid var(--border-main);
+      padding: 25px;
+      max-width: 450px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .contact-form .form-label {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-dark);
+      padding: 0 10px;
+      color: var(--accent-cyan);
+      font-family: 'Press Start 2P', cursive;
+      font-size: 9px;
+      white-space: nowrap;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      background: var(--bg-dark);
+      border: 2px solid var(--accent-purple);
+      color: var(--text-main);
+      font-family: 'VT323', monospace;
+      font-size: 18px;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent-pink);
+      box-shadow: 0 0 12px rgba(255, 0, 110, 0.3);
+    }
+
+    .form-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    textarea.form-input {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* ═══════════════════════════════════════
+       PLACEHOLDER BOX (GIF/VIDEO)
+       ═══════════════════════════════════════ */
+    .placeholder-box {
+      margin-top: 25px;
+      padding: 22px;
+      background: var(--bg-inner);
+      border: 3px dashed var(--border-main);
+      text-align: center;
+      position: relative;
+    }
+
+    .placeholder-box .ph-label {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-dark);
+      padding: 0 10px;
+      color: var(--accent-cyan);
+      font-family: 'Press Start 2P', cursive;
+      font-size: 9px;
+      white-space: nowrap;
+    }
+
+    .placeholder-box .ph-icon {
+      font-size: 45px;
+      margin-bottom: 10px;
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+
+    .placeholder-box .ph-text {
+      color: var(--text-dim);
+      font-size: 18px;
+    }
+
+    .placeholder-box .ph-hint {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════ */
+    footer {
+      background: var(--bg-card);
+      border-top: 4px solid var(--accent-pink);
+      padding: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer-border {
+      color: var(--accent-purple);
+      margin: 8px 0;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 8px;
+    }
+
+    .footer-heart {
+      color: var(--accent-pink);
+      animation: pulse 1s infinite;
+    }
+
+    .footer-blink {
+      color: var(--accent-cyan);
+      animation: blink 1s infinite;
+      margin-top: 8px;
+    }
+
+    /* ═══════════════════════════════════════
+       KEYFRAMES ANIMATIONS
+       ═══════════════════════════════════════ */
+    @keyframes twinkle {
+      0% { opacity: 0.3; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.3); }
+    }
+
+    @keyframes glitch {
+      0%, 88%, 100% { transform: translate(0); text-shadow: 2px 2px 0 var(--accent-pink), -2px -2px 0 var(--border-main); }
+      90% { transform: translate(-2px, 1px); text-shadow: 2px 2px 0 var(--border-main), -2px -2px 0 var(--accent-pink); }
+      92% { transform: translate(2px, -1px); text-shadow: -2px 2px 0 var(--accent-pink), 2px -2px 0 var(--border-main); }
+      94% { transform: translate(0); text-shadow: 2px 2px 0 var(--accent-pink), -2px -2px 0 var(--border-main); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE (MOBILE)
+       ═══════════════════════════════════════ */
+    @media (max-width: 600px) {
+      .logo { font-size: 14px; }
+      .nav-btn { font-size: 7px; padding: 8px 10px; }
+      .about-flex { flex-direction: column; text-align: center; }
+      .avatar-box { margin: 0 auto; }
+      .novel-flex { flex-direction: column; align-items: center; }
+      .novel-cover { margin: 0 auto; }
+      .game-flex { flex-direction: column; align-items: center; }
+      .game-thumb { margin: 0 auto; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .journey-grid { flex-direction: column; }
+      .social-grid { flex-direction: column; align-items: center; }
+      .btn-group { flex-direction: column; }
+      .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       EFEK CRT SCANLINE OVERLAY
+       ═══════════════════════════════════════ -->
+  <div class="crt-overlay"></div>
+
+  <!-- ═══════════════════════════════════════
+       PARTIKEL MELAYANG (DIISI OLEH JS)
+       ═══════════════════════════════════════ -->
+  <div class="particles" id="particles"></div>
+
+  <!-- ═══════════════════════════════════════
+       HEADER
+       ═══════════════════════════════════════ -->
+  <header>
+    <div class="star star-1">✦</div>
+    <div class="star star-2">✦</div>
+    <div class="star star-3">✦</div>
+    <div class="logo">▓▒░ PIXEL ARTIST ░▒▓</div>
+    <div class="tagline">✦ Pixel Art • Game Dev • Novel Writing ✦</div>
+  </header>
+
+  <!-- ═══════════════════════════════════════
+       NAVIGASI
+       ═══════════════════════════════════════ -->
+  <nav>
+    <button class="nav-btn active" onclick="showSection('about', this)">[ ABOUT ]</button>
+    <button class="nav-btn" onclick="showSection('pixelart', this)">[ PIXEL ART ]</button>
+    <button class="nav-btn" onclick="showSection('games', this)">[ GAMES ]</button>
+    <button class="nav-btn" onclick="showSection('novel', this)">[ NOVEL ]</button>
+    <button class="nav-btn" onclick="showSection('contact', this)">[ CONTACT ]</button>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       KONTEN UTAMA
+       ═══════════════════════════════════════ -->
+  <main>
+
+    <!-- ═══════════════════════════════════════
+         SECTION: ABOUT ME
+         ═══════════════════════════════════════ -->
+    <div id="about" class="section active">
+      <div class="pixel-card">
+        <div class="card-title">◆ ABOUT ME ◆</div>
+        <div class="about-flex">
+          <!-- GANTI EMOJI INI DENGAN AVATAR PIXEL ART KAMU -->
+          <div class="avatar-box">👾</div>
+          <div class="about-text">
+            <!-- GANTI [NAMA KAMU] -->
+            <h2>Hi, I'm [Nama Kamu]!</h2>
+            <p>
+              Seorang pixel artist & storyteller yang sedang membangun dunia pixel demi pixel.
+              Saat ini sedang belajar <span class="highlight">Aseprite</span>, Godot Engine, dan menulis novel pertamaku.
+              <br><br>
+              <span class="arrow">▶</span> Tools: Aseprite, Godot, VS Code<br>
+              <span class="arrow">▶</span> Status: <span class="highlight">Learning & Creating...</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pixel-card">
+        <div class="card-title">◆ MY JOURNEY ◆</div>
+        <div class="journey-grid">
+          <div class="journey-box">
+            <span class="icon icon-1">🎨</span>
+            <div class="label">PIXEL ART</div>
+            <div class="status">Learning basics</div>
+          </div>
+          <div class="journey-box">
+            <span class="icon icon-2">🎮</span>
+            <div class="label">GAME DEV</div>
+            <div class="status">Concept stage</div>
+          </div>
+          <div class="journey-box">
+            <span class="icon icon-3">📖</span>
+            <div class="label">NOVEL</div>
+            <div class="status">Writing draft</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         SECTION: PIXEL ART GALLERY
+         ═══════════════════════════════════════ -->
+    <div id="pixelart" class="section">
+      <div class="pixel-card">
+        <div class="card-title">◆ PIXEL ART GALLERY ◆</div>
+        <div class="gallery-grid">
+          <!-- ITEM 1: GANTI EMOJI DAN TEKS -->
+          <div class="art-item">
+            <div class="art-thumb">
+              <!-- GANTI DENGAN: <img src="LINK_GIF_KAMU.gif" alt="Environment"> -->
+              🌲
+            </div>
+            <div class="art-name">Environment #1</div>
+            <div class="art-status">● WIP</div>
+          </div>
+          <!-- ITEM 2 -->
+          <div class="art-item">
+            <div class="art-thumb">⚔️</div>
+            <div class="art-name">Character #1</div>
+            <div class="art-status">● WIP</div>
+          </div>
+          <!-- ITEM 3 -->
+          <div class="art-item">
+            <div class="art-thumb">🏠</div>
+            <div class="art-name">Building #1</div>
+            <div class="art-status">● WIP</div>
+          </div>
+          <!-- ITEM 4 -->
+          <div class="art-item">
+            <div class="art-thumb">💎</div>
+            <div class="art-name">Item #1</div>
+            <div class="art-status">● WIP</div>
+          </div>
+        </div>
+
+        <!-- PLACEHOLDER GIF/VIDEO -->
+        <div class="placeholder-box">
+          <div class="ph-label">▶ TIMELAPSE</div>
+          <div class="ph-icon">📹</div>
+          <div class="ph-text">GIF Placeholder — Pixel Art Process</div>
+          <div class="ph-hint">(Ganti emoji di atas dengan tag &lt;img&gt; atau &lt;iframe&gt;)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         SECTION: GAME PROJECTS
+         ═══════════════════════════════════════ -->
+    <div id="games" class="section">
+      <div class="pixel-card">
+        <div class="card-title">◆ GAME PROJECTS ◆</div>
+
+        <div class="game-card">
+          <div class="float-icon">⭐</div>
+          <div class="game-flex">
+            <!-- GANTI EMOJI INI DENGAN THUMBNAIL GAME -->
+            <div class="game-thumb">🎮</div>
+            <div class="game-info">
+              <!-- GANTI JUDUL GAME -->
+              <h3>PROJECT: [Judul Game]</h3>
+              <div class="game-meta">Genre: RPG | Status: <span class="highlight">Concept Stage</span></div>
+              <p class="game-desc">
+                Sebuah game petualangan pixel art yang berlatar di dunia misterius.
+                Saat ini sedang mendesain karakter dan environment.
+              </p>
+              <div class="tag-list">
+                <span class="tag">Godot</span>
+                <span class="tag">Pixel Art</span>
+                <span class="tag">RPG</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PLACEHOLDER VIDEO -->
+        <div class="placeholder-box">
+          <div class="ph-label">▶ GAMEPLAY PREVIEW</div>
+          <div class="ph-icon">🎬</div>
+          <div class="ph-text">Video Placeholder — Game Concept</div>
+          <div class="ph-hint">(Embed video YouTube di sini)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         SECTION: NOVEL
+         ═══════════════════════════════════════ -->
+    <div id="novel" class="section">
+      <div class="pixel-card">
+        <div class="card-title">◆ MY NOVEL ◆</div>
+        <div class="novel-flex">
+          <!-- GANTI EMOJI INI DENGAN COVER NOVEL -->
+          <div class="novel-cover">📚</div>
+          <div class="novel-info">
+            <!-- GANTI JUDUL NOVEL -->
+            <h2>[Judul Novel]</h2>
+            <div class="novel-meta">Status: <span class="highlight">Writing Draft</span> | Genre: Fantasy/Adventure</div>
+
+            <div class="novel-synopsis">
+              <div class="synopsis-label">◆ SYNOPSIS ◆</div>
+              <p>
+                Di dunia di mana pixel menyimpan sihir kuno, seorang seniman muda menemukan
+                bahwa gambar-gambarnya dapat membentuk ulang realitas. Bergabunglah dalam
+                perjalanan epik melalui alam digital...
+              </p>
+            </div>
+
+            <div class="btn-group">
+              <!-- GANTI # DENGAN LINK SAMPLE NOVEL -->
+              <a href="#" class="btn-primary">READ SAMPLE</a>
+              <a href="#" class="btn-secondary">NOTIFY ME</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         SECTION: CONTACT
+         ═══════════════════════════════════════ -->
+    <div id="contact" class="section">
+      <div class="pixel-card">
+        <div class="card-title">◆ CONTACT ME ◆</div>
+        <div class="contact-center">
+          <div class="contact-icon">💌</div>
+          <div class="contact-text">Let's create something amazing together!</div>
+
+          <div class="social-grid">
+            <!-- GANTI # DENGAN LINK SOSMED KAMU -->
+            <a href="#" class="social-item">
+              <span class="s-icon s-icon-1">🐦</span>
+              <div class="s-label">Twitter/X</div>
+            </a>
+            <a href="#" class="social-item">
+              <span class="s-icon s-icon-2">📸</span>
+              <div class="s-label">Instagram</div>
+            </a>
+            <a href="#" class="social-item">
+              <span class="s-icon s-icon-3">🎮</span>
+              <div class="s-label">Itch.io</div>
+            </a>
+            <a href="#" class="social-item">
+              <span class="s-icon s-icon-4">✉️</span>
+              <div class="s-label">Email</div>
+            </a>
+          </div>
+
+          <div class="contact-form">
+            <div class="form-label">◆ SEND A MESSAGE ◆</div>
+            <!-- GANTI action DENGAN LINK FORM (Google Forms, Formspree, dll) -->
+            <form action="#" method="POST">
+              <input type="text" name="name" class="form-input" placeholder="Your Name" required>
+              <input type="email" name="email" class="form-input" placeholder="Your Email" required>
+              <textarea name="message" class="form-input" placeholder="Your Message..." rows="4" required></textarea>
+              <button type="submit" class="btn-primary" style="width: 100%;">[ SEND MESSAGE ]</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════ -->
+  <footer>
+    <div class="footer-border">╔══════════════════════════════════════════╗</div>
+    <div>© 2026 [Nama Kamu] | Made with <span class="footer-heart">❤️</span> & Pixels</div>
+    <div class="footer-blink">▶ Press START to continue...</div>
+    <div class="footer-border">╚══════════════════════════════════════════╝</div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════
+       JAVASCRIPT
+       ═══════════════════════════════════════ -->
+  <script>
+    // Navigasi antar section
+    function showSection(sectionId, btn) {
+      // Sembunyikan semua section
+      document.querySelectorAll('.section').forEach(s => {
+        s.classList.remove('active');
+      });
+      // Tampilkan section yang dipilih
+      document.getElementById(sectionId).classList.add('active');
+      // Update tombol aktif
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
+
+    // Buat partikel melayang
+    const particlesContainer = document.getElementById('particles');
+    const colors = ['#ff006e', '#00f5d4', '#8338ec', '#ffbe0b'];
+
+    for (let i = 0; i < 25; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 5 + 2;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.background = colors[Math.floor(Math.random() * colors.length)];
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (Math.random() * 8 + 5) + 's';
+      p.style.animationDelay = Math.random() * 5 + 's';
+      particlesContainer.appendChild(p);
+    }
+
+    // Efek typing pada teks "Learning & Creating..."
+    const typingTexts = document.querySelectorAll('.highlight');
+    typingTexts.forEach(el => {
+      if (el.textContent.includes('Learning')) {
+        const original = el.textContent;
+        el.textContent = '';
+        let i = 0;
+        setInterval(() => {
+          el.textContent = original.substring(0, i) + '█';
+          i++;
+          if (i > original.length) {
+            el.textContent = original;
+            setTimeout(() => { i = 0; }, 2000);
+          }
+        }, 150);
+      }
+    });
+  </script>
+
+</body>
+</html>
