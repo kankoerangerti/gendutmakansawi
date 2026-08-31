@@ -856,6 +856,7 @@
       .btn-primary, .btn-secondary { width: 100%; text-align: center; }
     }
   </style>
+<base target="_blank">
 </head>
 <body>
 
@@ -1092,9 +1093,20 @@
           <div class="contact-form">
             <div class="form-label">◆ SEND A MESSAGE ◆</div>
             <!-- GANTI action DENGAN LINK FORM (Google Forms, Formspree, dll) -->
-            <form action="#" method="POST">
+            <!-- 
+  ═══════════════════════════════════════
+  CARA AKTIFKAN FORM KONTAK:
+  1. Daftar di https://formspree.io (gratis)
+  2. Buat form baru → copy link endpoint
+  3. Ganti "XXXXXXXX" di bawah dengan kode form kamu
+  4. Commit ke GitHub → form aktif!
+  ═══════════════════════════════════════
+-->
+<form action="https://formspree.io/f/mzebdgpg" method="POST">
               <input type="text" name="name" class="form-input" placeholder="Your Name" required>
               <input type="email" name="email" class="form-input" placeholder="Your Email" required>
+              <!-- Formspree: ini untuk reply ke pengirim -->
+              <input type="hidden" name="_replyto" value="">
               <textarea name="message" class="form-input" placeholder="Your Message..." rows="4" required></textarea>
               <button type="submit" class="btn-primary" style="width: 100%;">[ SEND MESSAGE ]</button>
             </form>
